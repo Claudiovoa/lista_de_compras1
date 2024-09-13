@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Compras</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        h1 {
+            text-align: center;
+            font-size: 24px;
+        }
+        #lista-compras {
+            list-style-type: none;
+            padding: 0;
+        }
+        #lista-compras li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        #lista-compras button {
+            background-color: #ff4444;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        #novo-item {
+            width: 70%;
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        #adicionar {
+            width: 28%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            #novo-item, #adicionar {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Lista de Compras</h1>
+    <div>
+        <input type="text" id="novo-item" placeholder="Digite um item">
+        <button id="adicionar">Adicionar</button>
+    </div>
+    <ul id="lista-compras"></ul>
+
+    <script>
+        const listaCompras = document.getElementById('lista-compras');
+        const novoItem = document.getElementById('novo-item');
+        const btnAdicionar = document.getElementById('adicionar');
+
+        btnAdicionar.addEventListener('click', adicionarItem);
+        novoItem.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                adicionarItem();
+            }
+        });
+
+        function adicionarItem() {
+            const itemTexto = novoItem.value.trim();
+            if (itemTexto !== '') {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    ${itemTexto}
+                    <button onclick="excluirItem(this)">Excluir</button>
+                `;
+                listaCompras.appendChild(li);
+                novoItem.value = '';
+            }
+        }
+
+        function excluirItem(btn) {
+            btn.parentElement.remove();
+        }
+    </script>
+</body>
+</html>
